@@ -14,7 +14,7 @@ Repositori ini berisi implementasi pipeline CI/CD dan deployment aplikasi portof
 
 ## Tautan Penting
 * Aplikasi Live: https://hello-minipro-2-587984343301.asia-southeast2.run.app
-* CI/CD Pipeline: 
+* CI/CD Pipeline: https://github.com/bayusp28/Final-Project-Digital-Skola/blob/main/.github/deploy.yml
 
 ## Fitur Proyek
 1. CI/CD Otomatis: Pipeline berjalan saat ada *push* ke branch main.
