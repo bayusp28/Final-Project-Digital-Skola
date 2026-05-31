@@ -1,0 +1,35 @@
+name: CI/CD Pipeline GCP
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Autentikasi GCP
+        uses: google-github-actions/auth@v1
+        with:
+          credentials_json: ${{ secrets.GCP_CREDENTIALS }}
+
+      - name: Setup Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v1
+        with:
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+
+      - name: Build dan Push Docker Image
+        run: |
+          gcloud builds submit --tag gcr.io/${{ secrets.GCP_PROJECT_ID }}/portfolio-app
+
+      - name: Deploy ke Cloud Run
+        run: |
+          gcloud run deploy portfolio-app \
+            --image gcr.io/${{ secrets.GCP_PROJECT_ID }}/portfolio-app \
+            --region asia-southeast2 \
+            --platform managed \
+            --allow-unauthenticated
